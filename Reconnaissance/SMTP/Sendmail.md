@@ -15,6 +15,15 @@ help
 ```
 
 ## Manual User Enumeration
+The enumeration can be done with EXPN, VRFY or RCPT TO
+```
+HELO x
+250  pleased to meet you
+EXPN user
+550 5.1.1 user... User unknown
+EXPN admin
+250 2.1.5 admin <admin@domain>
+```
 
 ## User Enumearion (smtp-user-enum)
 
