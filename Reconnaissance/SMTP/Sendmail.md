@@ -2,6 +2,7 @@
 ## Get banner, server name and domain name
 * `#nc 10.0.0.1 25`
 * `#telnet 10.0.0.1 25`
+* `nmap -sV -script banner -p- 10.0.0.1`
 
 ## Identify Supported Commands
 ```
@@ -28,7 +29,7 @@ EXPN admin
 ## User Enumearion ([smtp-user-enum](https://tools.kali.org/information-gathering/smtp-user-enum))
 `#smtp-user-enum -M RCPT -U users.txt -t 10.0.0.1`
 
-## User Enumeration (Metasploit)
+## User Enumeration ([Metasploit](https://www.rapid7.com/db/modules/auxiliary/scanner/smtp/smtp_enum))
 ```
 msf5 auxiliary(scanner/smtp/smtp_enum) > show info
 Basic options:
@@ -42,6 +43,28 @@ Basic options:
 ```
 
 ## Mail Relay (Manual)
+```
+root@attackdefense:~# nc 192.77.76.3 25
+220 domain-x ESMTP Sendmail 8.15.2/8.15.2/Debian-10; Sun, 6 Dec 2020 18:00:25 GMT; 
+helo x
+250 domain-x Hello, pleased to meet you
+mail from: admin@attacker.com
+250 2.1.0 admin@attacker.com... Sender ok
+rcpt to: root@domain-x
+250 2.1.5 root@domain-x... Recipient ok (will queue)
+data
+354 Enter mail, end with "." on a line by itself
+Subject: hi
 
-## Mail Relay (sendemail)
+Hello, test
+
+.
+250 2.0.0 0B6I0Pe9000330 Message accepted for delivery
+```
+
+## Mail Relay ([sendemail](http://www.postfix.org/sendmail.1.html))
+```
+sendemail -f admin@attacker.com -t root@domain-x -s 10.0.0.1 -u Fakemail -m "Hi test" -o tls=no
+Email was sent successfully!!!
+```
 
