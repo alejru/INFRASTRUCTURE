@@ -29,6 +29,17 @@ EXPN admin
 `#smtp-user-enum -M RCPT -U users.txt -t 10.0.0.1`
 
 ## User Enumeration (Metasploit)
+```
+msf5 auxiliary(scanner/smtp/smtp_enum) > show info
+Basic options:
+  Name       Current Setting                                                Required  Description
+  ----       ---------------                                                --------  -----------
+  RHOSTS     10.0.0.1                                                       yes       The target address range or CIDR identifier
+  RPORT      25                                                             yes       The target port (TCP)
+  THREADS    1                                                              yes       The number of concurrent threads
+  UNIXONLY   true                                                           yes       Skip Microsoft bannered servers when testing unix users
+  USER_FILE  /usr/share/metasploit-framework/data/wordlists/unix_users.txt  yes       The file that contains a list of probable users accounts.
+```
 
 ## Mail Relay (Manual)
 
