@@ -1,7 +1,7 @@
 # SMTP SendMail Reconnaissance
 ## Get banner, server name and domain name
-* `#nc 192.77.76.34 25`
-* `#telnet 192.77.76.34 25`
+* `#nc 10.0.0.1 25`
+* `#telnet 10.0.0.1 25`
 
 ## Identify Supported Commands
 ```
@@ -15,7 +15,7 @@ help
 ```
 
 ## Manual User Enumeration
-The enumeration can be done with EXPN, VRFY or RCPT TO
+The enumeration can be done with EXPN, VRFY or RCPT
 ```
 HELO x
 250  pleased to meet you
@@ -25,7 +25,8 @@ EXPN admin
 250 2.1.5 admin <admin@domain>
 ```
 
-## User Enumearion (smtp-user-enum)
+## User Enumearion ([smtp-user-enum](https://tools.kali.org/information-gathering/smtp-user-enum))
+`#smtp-user-enum -M RCPT -U users.txt -t 10.0.0.1`
 
 ## User Enumeration (Metasploit)
 
