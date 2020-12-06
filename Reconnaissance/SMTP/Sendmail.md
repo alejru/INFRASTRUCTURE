@@ -1,15 +1,15 @@
-## SMTP SendMail Reconnaissance
-# Get banner, server name and domain name
+# SMTP SendMail Reconnaissance
+## Get banner, server name and domain name
 
-# Identify Supported Commands
+## Identify Supported Commands
 
-# Manual User Enumeration
+## Manual User Enumeration
 
-# User Enumearion (smtp-user-enum)
+## User Enumearion (smtp-user-enum)
 
-# User Enumeration (Metasploit)
+## User Enumeration (Metasploit)
 
-# Mail Relay (Manual)
+## Mail Relay (Manual)
 
-# Mail Relay (sendemail)
+## Mail Relay (sendemail)
 
