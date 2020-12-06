@@ -1,2 +1,2 @@
-# PENTESTING
-Documentation about pentesting strategies 
+# INFRASTRUCTURE PENTESTING
+Documentation about infrastructure pentesting strategies 
