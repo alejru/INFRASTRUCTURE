@@ -2,7 +2,7 @@
 ## Get banner, server name and domain name
 * `#nc 10.0.0.1 25`
 * `#telnet 10.0.0.1 25`
-* `nmap -sV -script banner -p- 10.0.0.1`
+* `#nmap -sV -script banner -p- 10.0.0.1`
 
 ## Identify Supported Commands
 ```
@@ -62,9 +62,9 @@ Hello, test
 250 2.0.0 0B6I0Pe9000330 Message accepted for delivery
 ```
 
-## Mail Relay ([sendemail](http://www.postfix.org/sendmail.1.html))
+## Mail Relay (sendemail)
 ```
-sendemail -f admin@attacker.com -t root@domain-x -s 10.0.0.1 -u Fakemail -m "Hi test" -o tls=no
+#sendemail -f admin@attacker.com -t root@domain-x -s 10.0.0.1 -u Fakemail -m "Hi test" -o tls=no
 Email was sent successfully!!!
 ```
 
