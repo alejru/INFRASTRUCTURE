@@ -1,5 +1,5 @@
 # SAMBA Reconnaissance
-## Default port
+## Default Ports
 ```
 #nmap 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:45 UTC
