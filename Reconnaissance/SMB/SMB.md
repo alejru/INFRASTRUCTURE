@@ -1,4 +1,4 @@
-# SAMBA Reconnaissance
+# SMB Reconnaissance
 ## NMAP
 ### Default Ports
 ```
@@ -34,7 +34,7 @@ MAC Address: 02:42:C0:B0:53:03 (Unknown)
 Service Info: Host: HOST
 ```
 
-### Samba Version, NetBios computer name (nmap)
+### SMB Version, NetBios computer name 
 ```
 # nmap --script smb-os-discovery.nse -p445 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:53 UTC
@@ -97,7 +97,7 @@ Host script results:
 
 
 ## METASPLOIT
-### Samba Version 
+### SMB Version 
 ```
 msf5 auxiliary(scanner/smb/smb_version) > show info
 Basic options:
@@ -147,7 +147,7 @@ msf5 auxiliary(scanner/smb/smb_enumusers) > exploit
 [*] Auxiliary module execution completed
 ```
 ## NMBLOOKUP
-### Samba Version, NetBios computer name
+### SMB Version, NetBios computer name
 * `#nmblookup -A 192.176.83.3`
 
 ## SMBCLIENT
