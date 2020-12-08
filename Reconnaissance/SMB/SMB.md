@@ -1,6 +1,6 @@
 # SMB Reconnaissance
 ## NMAP
-### Default Ports
+#### Default Ports
 ```
 #nmap 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:45 UTC
@@ -21,7 +21,7 @@ PORT      STATE         SERVICE
 138/udp   open|filtered netbios-dgm
 ```
 
-### Workgroup
+#### Workgroup
 ```
 # nmap -sV -p 445 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:50 UTC
@@ -34,7 +34,7 @@ MAC Address: 02:42:C0:B0:53:03 (Unknown)
 Service Info: Host: HOST
 ```
 
-### SMB Version, NetBios computer name 
+#### SMB Version, NetBios computer name 
 ```
 # nmap --script smb-os-discovery.nse -p445 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:53 UTC
@@ -54,7 +54,7 @@ Host script results:
 |   FQDN: host
 |_  System time: 2020-12-07T12:53:42+00:00
 ```
-### Test NT LM 0.12 (SMBv1) dialects
+#### Test NT LM 0.12 (SMBv1) dialects
 ```
 # nmap -p445 --script smb-protocols 10.0.0.1
 PORT    STATE SERVICE
@@ -69,7 +69,7 @@ Host script results:
 |     3.02
 |_    3.11
 ```
-### Find SMB Users
+#### Find SMB Users
 ```
  # nmap -p 445 --script smb-enum-users 10.0.0.1
 PORT    STATE SERVICE
@@ -97,7 +97,7 @@ Host script results:
 
 
 ## METASPLOIT
-### SMB Version 
+#### SMB Version 
 ```
 msf5 auxiliary(scanner/smb/smb_version) > show info
 Basic options:
@@ -114,7 +114,7 @@ msf5 auxiliary(scanner/smb/smb_version) > run
 [*] 10.0.0.1:445      - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
-### Test support of SMBv2
+#### Test support of SMBv2
 ```
 msf5 auxiliary(scanner/smb/smb2) > show info
 Basic options:
@@ -128,7 +128,7 @@ msf5 auxiliary(scanner/smb/smb2) > exploit
 [*] 10.0.0.1 :445     - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
-### Find SMB Users
+#### Find SMB Users
 SAM Users
 ```
 msf5 auxiliary(scanner/smb/smb_enumusers) > show info 
@@ -147,21 +147,21 @@ msf5 auxiliary(scanner/smb/smb_enumusers) > exploit
 [*] Auxiliary module execution completed
 ```
 ## NMBLOOKUP
-### SMB Version, NetBios computer name
+#### SMB Version, NetBios computer name
 `#nmblookup -A 192.176.83.3`
 
 ## SMBCLIENT
-### Test Null Session
+#### Test Null Session
 `#smbclient -L 10.0.0.1 -N` null session is allowed if shares are displayed without password. (Server Description)
 
 ## RPCCLIENT
-### Test Null Session 
+#### Test Null Session 
 Null session is allowed if no errors while connecting without credentials 
 ```
 # rpcclient -U "" -N 10.0.0.1   
 rpcclient $> 
 ```
-### Server Information
+#### Server Information
 ```
 # rpcclient -U "" -N 10.0.0.1   
 rpcclient $> srvinfo
@@ -170,7 +170,7 @@ rpcclient $> srvinfo
         os version      :       6.1
         server type     :       0x809a03
 ```
-### Test SMB Users
+#### Test SMB Users
 ```
 #  rpcclient -U "" -N 10.0.0.1
 rpcclient $> enumdomusers
@@ -178,7 +178,7 @@ user:[carlos] rid:[0x3e8]
 user:[julio] rid:[0x3ea]
 user:[admin] rid:[0x3ed]
 ```
-### Find SID of a user
+#### Find SID of a user
 ```
 #  rpcclient -U "" -N 10.0.0.1
 rpcclient $> lookupnames admin
@@ -186,9 +186,9 @@ admin S-1-5-21-4056189605-2085045094-1961111545-1005 (User: 1)
 ```
 
 ## ENUM4LINUX
-### OS Version
+#### OS Version
 `# enum4linux -o 10.0.0.1`
-### SMB USers
+#### SMB USers
 ```
 # enum4linux -U 10.0.0.1
  ========================== 
