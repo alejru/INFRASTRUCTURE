@@ -148,11 +148,11 @@ msf5 auxiliary(scanner/smb/smb_enumusers) > exploit
 ```
 ## NMBLOOKUP
 ### SMB Version, NetBios computer name
-* `#nmblookup -A 192.176.83.3`
+`#nmblookup -A 192.176.83.3`
 
 ## SMBCLIENT
 ### Test Null Session
-*`#smbclient -L 10.0.0.1 -N` null session is allowed if shares are displayed without password. (Server Description)
+`#smbclient -L 10.0.0.1 -N` null session is allowed if shares are displayed without password. (Server Description)
 
 ## RPCCLIENT
 ### Test Null Session 
