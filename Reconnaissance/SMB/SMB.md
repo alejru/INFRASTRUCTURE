@@ -1,5 +1,6 @@
 # SAMBA Reconnaissance
-## Default Ports
+## NMAP
+### Default Ports
 ```
 #nmap 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:45 UTC
@@ -20,7 +21,7 @@ PORT      STATE         SERVICE
 138/udp   open|filtered netbios-dgm
 ```
 
-## Workgroup
+### Workgroup
 ```
 # nmap -sV -p 445 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:50 UTC
@@ -33,7 +34,7 @@ MAC Address: 02:42:C0:B0:53:03 (Unknown)
 Service Info: Host: HOST
 ```
 
-## Samba Version, NetBios computer name (nmap)
+### Samba Version, NetBios computer name (nmap)
 ```
 # nmap --script smb-os-discovery.nse -p445 10.0.0.1
 Starting Nmap 7.70 ( https://nmap.org ) at 2020-12-07 12:53 UTC
@@ -53,6 +54,47 @@ Host script results:
 |   FQDN: host
 |_  System time: 2020-12-07T12:53:42+00:00
 ```
+### Test NT LM 0.12 (SMBv1) dialects
+```
+# nmap -p445 --script smb-protocols 10.0.0.1
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+Host script results:
+| smb-protocols: 
+|   dialects: 
+|     NT LM 0.12 (SMBv1) [dangerous, but default]
+|     2.02
+|     2.10
+|     3.00
+|     3.02
+|_    3.11
+```
+### Find SMB Users
+```
+ # nmap -p 445 --script smb-enum-users 10.0.0.1
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+Host script results:
+| smb-enum-users: 
+|   SAMBA-RECON\admin (RID: 1005)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\carlos (RID: 1004)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\idiot (RID: 1002)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\marlejo (RID: 1003)
+|     Full name:   
+|     Description: 
+|_    Flags:       Normal user account
+```
+
+
 
 ## METASPLOIT
 ### Samba Version 
@@ -104,11 +146,11 @@ msf5 auxiliary(scanner/smb/smb_enumusers) > exploit
 [*] 10.0.0.1:        - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
-
-## Samba Version, NetBios computer name (nmblookup)
+## NMBLOOKUP
+### Samba Version, NetBios computer name
 * `#nmblookup -A 192.176.83.3`
 
-##SMBCLIENT
+## SMBCLIENT
 ### Test Null Session
 *`#smbclient -L 10.0.0.1 -N` null session is allowed if shares are displayed without password. (Server Description)
 
@@ -160,45 +202,5 @@ Known Usernames .. administrator, guest, krbtgt, none
 ```
 
 
-## NMAP
-### Test NT LM 0.12 (SMBv1) dialects
-```
-# nmap -p445 --script smb-protocols 10.0.0.1
-PORT    STATE SERVICE
-445/tcp open  microsoft-ds
-Host script results:
-| smb-protocols: 
-|   dialects: 
-|     NT LM 0.12 (SMBv1) [dangerous, but default]
-|     2.02
-|     2.10
-|     3.00
-|     3.02
-|_    3.11
-```
-### Find SMB Users
-```
- # nmap -p 445 --script smb-enum-users 10.0.0.1
-PORT    STATE SERVICE
-445/tcp open  microsoft-ds
-Host script results:
-| smb-enum-users: 
-|   SAMBA-RECON\admin (RID: 1005)
-|     Full name:   
-|     Description: 
-|     Flags:       Normal user account
-|   SAMBA-RECON\carlos (RID: 1004)
-|     Full name:   
-|     Description: 
-|     Flags:       Normal user account
-|   SAMBA-RECON\idiot (RID: 1002)
-|     Full name:   
-|     Description: 
-|     Flags:       Normal user account
-|   SAMBA-RECON\marlejo (RID: 1003)
-|     Full name:   
-|     Description: 
-|_    Flags:       Normal user account
-```
 
 
