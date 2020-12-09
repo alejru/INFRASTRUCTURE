@@ -93,6 +93,33 @@ Host script results:
 |     Description: 
 |_    Flags:       Normal user account
 ```
+#### Find Shares
+The most interesting is to find shares with READ/WRITE access
+```
+# nmap --script smb-enum-shares.nse -p445 10.0.0.1
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+Host script results:
+| smb-enum-shares: 
+|   account_used: guest
+|   \\10.0.0.1\IPC$: 
+|     Type: STYPE_IPC_HIDDEN
+|     Comment: IPC Service (samba.recon.lab)
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|     Current user access: READ/WRITE
+|   \\10.0.0.1\carlos: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 0
+|     Max Users: <unlimited>
+|     Path: C:\samba\carlos
+|     Anonymous access: <none>
+|     Current user access: <none>
+```
+
 
 
 
@@ -146,13 +173,33 @@ msf5 auxiliary(scanner/smb/smb_enumusers) > exploit
 [*] 10.0.0.1:        - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
-## NMBLOOKUP
-#### SMB Version, NetBios computer name
-`#nmblookup -A 192.176.83.3`
+#### Find Shares
+`msf5 auxiliary(scanner/smb/smb_enumshares)`
+
+
+
+
 
 ## SMBCLIENT
-#### Test Null Session
+#### Test Null Session Find shares
 `#smbclient -L 10.0.0.1 -N` null session is allowed if shares are displayed without password. (Server Description)
+#### Explore a share file
+```
+# smbclient //10.0.0.1/public -N
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Wed Dec  9 17:56:32 2020
+  ..                                  D        0  Tue Nov 27 13:36:13 2018
+  file1                               D        0  Tue Nov 27 13:36:13 2018
+  file2                               D        0  Tue Nov 27 13:36:13 2018
+```
+
+
+
+
+
+
+
 
 ## RPCCLIENT
 #### Test Null Session 
@@ -184,6 +231,15 @@ user:[admin] rid:[0x3ed]
 rpcclient $> lookupnames admin
 admin S-1-5-21-4056189605-2085045094-1961111545-1005 (User: 1)
 ```
+#### List Domain Groups
+```
+root@attackdefense:~# rpcclient -U "" -N 10.0.0.1
+rpcclient $> enumdomgroups
+```
+
+
+
+
 
 ## ENUM4LINUX
 #### OS Version
@@ -200,7 +256,21 @@ Username ......... ''
 Password ......... ''
 Known Usernames .. administrator, guest, krbtgt, none
 ```
+#### Find Shares
+`# enum4linux -S 10.0.0.1`
+#### Domain Groups
+`# enum4linux -G 10.0.0.1`
+#### Printer Info
+`# enum4linux -i 10.0.0.1`
 
 
+
+
+
+
+
+## NMBLOOKUP
+#### SMB Version, NetBios computer name
+`# nmblookup -A 192.176.83.3`
 
 
